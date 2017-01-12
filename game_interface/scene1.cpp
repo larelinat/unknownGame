@@ -1,6 +1,10 @@
 #include "scene1.h"
 #include "ui_scene1.h"
 #include <QTimer>
+#include <QUrl>
+#include <QMediaPlayer>
+
+
 
 
 scene1::scene1(QWidget *parent) :
@@ -10,12 +14,26 @@ scene1::scene1(QWidget *parent) :
 
     ui->setupUi(this);
     ui->centralWidget->showFullScreen();
-    QPixmap bkgnd("E:/shit/game_interface/back.png");
+    QPixmap bkgnd(":/pic/back.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
     this->setPalette(palette);
 
+    winn = new QMediaPlayer;
+    winn->setMedia(QUrl("qrc:/sound/win.wav"));
+    hit = new QMediaPlayer;
+    hit->setMedia(QUrl("qrc:/sound/hit.wav"));
+    kick = new QMediaPlayer;
+    kick->setMedia(QUrl("qrc:/sound/kick.wav"));
+    smash = new QMediaPlayer;
+    smash->setMedia(QUrl("qrc:/sound/smash.wav"));
+    roar1 = new QMediaPlayer;
+    roar1->setMedia(QUrl("qrc:/sound/bear1.wav"));
+    roar2 = new QMediaPlayer;
+    roar2->setMedia(QUrl("qrc:/sound/bear2.wav"));
+    roar3 = new QMediaPlayer;
+    roar3->setMedia(QUrl("qrc:/sound/bear3.wav"));
 
 
     ui->textBrowser->hide();
@@ -34,6 +52,8 @@ scene1::scene1(QWidget *parent) :
 
     ui->progressBar->hide();
     ui->progressBar_2->hide();
+
+
 }
 
 scene1::~scene1()
@@ -83,7 +103,7 @@ void scene1::on_button1_clicked()
 {
 
 
-    QPixmap bkgnd("E:/shit/game_interface/back2.png");
+    QPixmap bkgnd(":/pic/back2.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
@@ -162,7 +182,7 @@ void scene1::on_pushButton_10_clicked()
     ui->progressBar_2->setValue(b.hp);
     }
     strdmg = QString::number(a.dmg /2);
-
+    hit->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
 
@@ -170,7 +190,7 @@ void scene1::on_pushButton_10_clicked()
     ui->textBrowser->append(str);
 
     if (b.hp <= 0){
-
+      winn->play();
       ui->textBrowser->append("Поздравляю! Вы победили!");
       timer.setInterval(10000);
       connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
@@ -181,7 +201,8 @@ void scene1::on_pushButton_10_clicked()
   }
 
        ui->textBrowser->append("Противник думает чем ответить.");
-       timer.setInterval(5000); //5 sec
+       timer.setInterval(3000); //5 sec
+
        connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
        timer.start();
        loop.exec();
@@ -194,8 +215,8 @@ void scene1::on_pushButton_10_clicked()
     }
     strdmg = QString::number(b.dmg);
 
+    roar1->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
-
     ui->textBrowser->append(str);
     ui->pushButton_8->setEnabled(true);
     ui->pushButton_9->setEnabled(true);
@@ -241,7 +262,7 @@ void scene1::on_pushButton_8_clicked()
     ui->progressBar_2->setValue(b.hp);
     }
     strdmg = QString::number(a.dmg *2);
-
+    smash->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
 
@@ -249,7 +270,7 @@ void scene1::on_pushButton_8_clicked()
     ui->textBrowser->append(str);
 
     if (b.hp <= 0){
-
+      winn->play();
       ui->textBrowser->append("Поздравляю! Вы победили!");
       timer.setInterval(10000);
       connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
@@ -260,7 +281,7 @@ void scene1::on_pushButton_8_clicked()
   }
 
        ui->textBrowser->append("Противник думает чем ответить.");
-       timer.setInterval(5000); //5 sec
+       timer.setInterval(3000); //5 sec
        connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
        timer.start();
        loop.exec();
@@ -272,7 +293,7 @@ void scene1::on_pushButton_8_clicked()
     ui->progressBar->setValue(a.hp);
     }
     strdmg = QString::number(b.dmg);
-
+    roar2->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 
     ui->textBrowser->append(str);
@@ -283,7 +304,7 @@ void scene1::on_pushButton_8_clicked()
     if (a.hp <= 0){
 
      ui->textBrowser->append("Вы проиграли этот бой!");
-     timer.setInterval(10000);
+     timer.setInterval(5000);
      connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
      timer.start();
      loop.exec();
@@ -320,7 +341,7 @@ void scene1::on_pushButton_9_clicked()
     }
 
     strdmg = QString::number(a.dmg);
-
+    kick->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
 
@@ -328,7 +349,7 @@ void scene1::on_pushButton_9_clicked()
     ui->textBrowser->append(str);
 
     if (b.hp <= 0){
-
+      winn->play();
       ui->textBrowser->append("Поздравляю! Вы победили!");
       timer.setInterval(10000);
       connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
@@ -339,7 +360,7 @@ void scene1::on_pushButton_9_clicked()
   }
 
        ui->textBrowser->append("Противник думает чем ответить.");
-       timer.setInterval(5000); //5 sec
+       timer.setInterval(3000); //5 sec
        connect (&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
        timer.start();
        loop.exec();
@@ -351,7 +372,7 @@ void scene1::on_pushButton_9_clicked()
     ui->progressBar->setValue(a.hp);
     }
     strdmg = QString::number(b.dmg);
-
+    roar3->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 
     ui->textBrowser->append(str);

@@ -2,6 +2,7 @@
 #define SCENE1_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
 
 namespace Ui {
 class scene1;
@@ -14,6 +15,13 @@ class scene1 : public QMainWindow
 public:
     explicit scene1(QWidget *parent = 0);
     ~scene1();
+    QMediaPlayer * roar1;
+    QMediaPlayer * roar2;
+    QMediaPlayer * roar3;
+    QMediaPlayer * kick;
+    QMediaPlayer * smash;
+    QMediaPlayer * hit;
+    QMediaPlayer * winn;
 
 private slots:
     void on_pushButton_3_clicked();

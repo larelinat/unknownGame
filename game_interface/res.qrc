@@ -6,4 +6,17 @@
         <file>exit.png</file>
         <file>textboard.png</file>
     </qresource>
+    <qresource prefix="/sound">
+        <file>bear1.wav</file>
+        <file>bear2.wav</file>
+        <file>bear3.wav</file>
+        <file>hit.wav</file>
+        <file>kick.wav</file>
+        <file>smash.wav</file>
+        <file>win.wav</file>
+    </qresource>
+    <qresource prefix="/pic">
+        <file>back.png</file>
+        <file>back2.png</file>
+    </qresource>
 </RCC>
