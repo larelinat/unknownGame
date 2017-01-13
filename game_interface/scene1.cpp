@@ -6,6 +6,27 @@
 #include <ctime>
 
 
+int scene1::damage(int dmg) {
+    QString str;
+    int i, rate, dmge;
+    srand(time(0));
+
+    i = (rand() % 5 - 2);
+    rate = (rand() % 100 + 1);
+    if (rate <= 10) {
+        dmge = (dmg + i) * 2;
+        str = "Критический удар!";
+        ui->textBrowser->append(str);
+    }
+    else if(rate >= 90) {
+        dmge = 0;
+        str = "Промах!";
+        ui->textBrowser->append(str);
+    }
+    else
+        dmge = dmg + i;
+    return dmge;
+}
 
 scene1::scene1(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +42,7 @@ scene1::scene1(QWidget *parent) :
 
     winn = new QMediaPlayer;
     winn->setMedia(QUrl("qrc:/sound/win.wav"));
+    winn->setVolume(50);
     hit = new QMediaPlayer;
     hit->setMedia(QUrl("qrc:/sound/hit.wav"));
     kick = new QMediaPlayer;
@@ -179,23 +201,24 @@ void scene1::on_pushButton_10_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
-    int i;
-
-    srand(time(0));
+    int dmg;
 
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
-    i = (rand() % 5 - 2);
+
+    dmg = damage(a.dmg / 2);
+
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - (a.dmg /2 + i);
-    if(b.hp <= 0){
-         ui->progressBar_2->setValue(0);
-    } else {
-    ui->progressBar_2->setValue(b.hp);
-    }
-    strdmg = QString::number(a.dmg /2 + i);
+        b.hp = b.hp - dmg;
+        if(b.hp <= 0){
+            ui->progressBar_2->setValue(0);
+        }
+        else {
+            ui->progressBar_2->setValue(b.hp);
+        }
+    strdmg = QString::number(dmg);
     hit->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -221,15 +244,14 @@ void scene1::on_pushButton_10_clicked()
        timer.start();
        loop.exec();
 
-    srand(time(0));
-    i = (rand() % 5 - 2);
-    a.hp = a.hp - (b.dmg + i);
+    dmg = damage(b.dmg);
+    a.hp = a.hp - dmg;
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else {
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg + i);
+    strdmg = QString::number(dmg);
 
     roar1->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
@@ -266,21 +288,20 @@ void scene1::on_pushButton_8_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
-    int i;
+    int dmg;
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
-    srand(time(0));
-    i = (rand() % 5 - 2);
+    dmg = damage(a.dmg * 2);
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - (a.dmg * 2 + i);
+    b.hp = b.hp - dmg;
     if(b.hp <= 0){
          ui->progressBar_2->setValue(0);
     } else {
     ui->progressBar_2->setValue(b.hp);
     }
-    strdmg = QString::number(a.dmg *2 + i);
+    strdmg = QString::number(dmg);
     smash->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -305,15 +326,14 @@ void scene1::on_pushButton_8_clicked()
        timer.start();
        loop.exec();
 
-    srand(time(0));
-    i = (rand() % 5 - 2);
-    a.hp = a.hp - (b.dmg + i);
+    dmg = damage(b.dmg);
+    a.hp = a.hp - dmg;
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else {
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg + i);
+    strdmg = QString::number(dmg);
     roar2->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 
@@ -350,23 +370,23 @@ void scene1::on_pushButton_9_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
-    int i;
+    int dmg;
 
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
-    srand(time(0));
-    i = (rand() % 5 - 2);
+
+    dmg = damage(a.dmg);
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - (a.dmg + i);
+    b.hp = b.hp - dmg;
     if(b.hp <= 0){
          ui->progressBar_2->setValue(0);
     }else{
     ui->progressBar_2->setValue(b.hp);
     }
 
-    strdmg = QString::number(a.dmg + i);
+    strdmg = QString::number(dmg);
     kick->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -391,15 +411,14 @@ void scene1::on_pushButton_9_clicked()
        timer.start();
        loop.exec();
 
-    srand(time(0));
-    i = (rand() % 5 - 2);
-    a.hp = a.hp - (b.dmg + i);
+    dmg = damage(b.dmg);
+    a.hp = a.hp - dmg;
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg + i);
+    strdmg = QString::number(dmg);
     roar3->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 

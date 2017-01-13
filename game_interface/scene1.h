@@ -23,6 +23,7 @@ public:
     QMediaPlayer * hit;
     QMediaPlayer * winn;
     QMediaPlayer * click;
+    int damage(int dmg);
 
 private slots:
     void on_pushButton_3_clicked();
