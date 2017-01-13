@@ -88,15 +88,14 @@ border-image: url(:/button1.png);</string>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>1120</x>
-      <y>10</y>
-      <width>75</width>
-      <height>23</height>
+      <x>20</x>
+      <y>110</y>
+      <width>81</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/exit.png);
-border-image: url(:/exit.png);</string>
+     <string notr="true">border-image: url(:/pic/heal.png);</string>
     </property>
     <property name="text">
      <string/>

@@ -99,6 +99,14 @@ class you{
 
 };
 
+void scene1::on_pushButton_3_clicked()  {
+
+    you a(ui->progressBar_2->value(), 10);
+    a.hp = a.hp + 20;
+    ui->progressBar->setValue(a.hp);
+    ui->pushButton_3->hide();
+}
+
 void scene1::on_button1_clicked()
 {
 
@@ -319,6 +327,7 @@ void scene1::on_button3_clicked()
     qApp->quit();
 }
 
+
 void scene1::on_pushButton_9_clicked()
 {
     you a(ui->progressBar->value(), 10);
@@ -393,5 +402,8 @@ void scene1::on_pushButton_9_clicked()
      qApp->quit();
 
  }
+
+
+
 }
 

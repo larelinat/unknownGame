@@ -18,5 +18,6 @@
     <qresource prefix="/pic">
         <file>back.png</file>
         <file>back2.png</file>
+        <file>heal.png</file>
     </qresource>
 </RCC>
