@@ -22,6 +22,7 @@ public:
     QMediaPlayer * smash;
     QMediaPlayer * hit;
     QMediaPlayer * winn;
+    QMediaPlayer * click;
 
 private slots:
     void on_pushButton_3_clicked();

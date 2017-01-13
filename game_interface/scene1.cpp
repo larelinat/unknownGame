@@ -3,7 +3,7 @@
 #include <QTimer>
 #include <QUrl>
 #include <QMediaPlayer>
-
+#include <ctime>
 
 
 
@@ -11,7 +11,6 @@ scene1::scene1(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::scene1)
 {
-
     ui->setupUi(this);
     ui->centralWidget->showFullScreen();
     QPixmap bkgnd(":/pic/back.png");
@@ -34,6 +33,9 @@ scene1::scene1(QWidget *parent) :
     roar2->setMedia(QUrl("qrc:/sound/bear2.wav"));
     roar3 = new QMediaPlayer;
     roar3->setMedia(QUrl("qrc:/sound/bear3.wav"));
+    click = new QMediaPlayer;
+    click->setMedia(QUrl("qrc:/sound/click.wav"));
+    click->setVolume(15);
 
 
     ui->textBrowser->hide();
@@ -100,7 +102,6 @@ class you{
 };
 
 void scene1::on_pushButton_3_clicked()  {
-
     you a(ui->progressBar_2->value(), 10);
     a.hp = a.hp + 20;
     ui->progressBar->setValue(a.hp);
@@ -109,7 +110,7 @@ void scene1::on_pushButton_3_clicked()  {
 
 void scene1::on_button1_clicked()
 {
-
+    click->play();
 
     QPixmap bkgnd(":/pic/back2.png");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
@@ -149,6 +150,7 @@ void scene1::on_button1_clicked()
 
 void scene1::on_pushButton_clicked()
 {
+    click->play();
     ui->pushButton_4->show();
     ui->pushButton_5->show();
     ui->pushButton_6->show();
@@ -160,6 +162,7 @@ void scene1::on_pushButton_clicked()
 
 void scene1::on_pushButton_7_clicked()
 {
+    click->play();
     ui->pushButton_4->hide();
     ui->pushButton_5->hide();
     ui->pushButton_6->hide();
@@ -176,20 +179,23 @@ void scene1::on_pushButton_10_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
+    int i;
+
+    srand(time(0));
 
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
-
+    i = (rand() % 5 - 2);
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - a.dmg /2;
+    b.hp = b.hp - (a.dmg /2 + i);
     if(b.hp <= 0){
          ui->progressBar_2->setValue(0);
     } else {
     ui->progressBar_2->setValue(b.hp);
     }
-    strdmg = QString::number(a.dmg /2);
+    strdmg = QString::number(a.dmg /2 + i);
     hit->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -215,13 +221,15 @@ void scene1::on_pushButton_10_clicked()
        timer.start();
        loop.exec();
 
-    a.hp = a.hp - b.dmg;
+    srand(time(0));
+    i = (rand() % 5 - 2);
+    a.hp = a.hp - (b.dmg + i);
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else {
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg);
+    strdmg = QString::number(b.dmg + i);
 
     roar1->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
@@ -245,6 +253,7 @@ void scene1::on_pushButton_10_clicked()
 
 void scene1::on_pushButton_6_clicked()
 {
+    click->play();
     qApp->quit();
 
 }
@@ -257,19 +266,21 @@ void scene1::on_pushButton_8_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
-
+    int i;
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
+    srand(time(0));
+    i = (rand() % 5 - 2);
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - a.dmg * 2;
+    b.hp = b.hp - (a.dmg * 2 + i);
     if(b.hp <= 0){
          ui->progressBar_2->setValue(0);
     } else {
     ui->progressBar_2->setValue(b.hp);
     }
-    strdmg = QString::number(a.dmg *2);
+    strdmg = QString::number(a.dmg *2 + i);
     smash->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -294,13 +305,15 @@ void scene1::on_pushButton_8_clicked()
        timer.start();
        loop.exec();
 
-    a.hp = a.hp - b.dmg;
+    srand(time(0));
+    i = (rand() % 5 - 2);
+    a.hp = a.hp - (b.dmg + i);
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else {
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg);
+    strdmg = QString::number(b.dmg + i);
     roar2->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 
@@ -324,6 +337,7 @@ void scene1::on_pushButton_8_clicked()
 
 void scene1::on_button3_clicked()
 {
+    click->play();
     qApp->quit();
 }
 
@@ -336,20 +350,23 @@ void scene1::on_pushButton_9_clicked()
     QString str;
     QEventLoop loop;
     QTimer timer;
+    int i;
 
     ui->pushButton_8->setDisabled(true);
     ui->pushButton_9->setDisabled(true);
     ui->pushButton_10->setDisabled(true);
 
+    srand(time(0));
+    i = (rand() % 5 - 2);
     if (b.hp > 0 && a.hp > 0){
-    b.hp = b.hp - a.dmg;
+    b.hp = b.hp - (a.dmg + i);
     if(b.hp <= 0){
          ui->progressBar_2->setValue(0);
     }else{
     ui->progressBar_2->setValue(b.hp);
     }
 
-    strdmg = QString::number(a.dmg);
+    strdmg = QString::number(a.dmg + i);
     kick->play();
     str = "Вы нанесли противнику " + strdmg + " урона!" ;
 
@@ -374,13 +391,15 @@ void scene1::on_pushButton_9_clicked()
        timer.start();
        loop.exec();
 
-    a.hp = a.hp - b.dmg;
+    srand(time(0));
+    i = (rand() % 5 - 2);
+    a.hp = a.hp - (b.dmg + i);
     if(a.hp <= 0){
          ui->progressBar->setValue(0);
     } else
     ui->progressBar->setValue(a.hp);
     }
-    strdmg = QString::number(b.dmg);
+    strdmg = QString::number(b.dmg + i);
     roar3->play();
     str = "Противник наносит вам " + strdmg + " урона атакой по корпусу! \n" ;
 
